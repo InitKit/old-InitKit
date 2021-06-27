@@ -1,0 +1,76 @@
+/*
+ * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ * 		PROPRIETARY NOTICE:
+ *
+ * The software contained on this media is unpublished proprietary information
+ * constituting or derived under licence from NetaScale Advanced Executive (tm),
+ * a product of NetaScale Systems, Ltd.
+ *
+ * 		Copyright Notice:
+ *
+ * Notice of copyright on this source code product does not indicate
+ * publication.
+ *
+ * 	(c) 2008-2021 NetaScale Systems, Ltd.
+ * 		All rights reserved.
+ */
+/**
+ * @file config.h
+ * @brief InitKit build configuration.
+ */
+
+#ifndef COMPAT_H_IN_
+#define COMPAT_H_IN_
+
+/*
+ * platform definitions
+ */
+#cmakedefine PLATFORM_Linux
+#cmakedefine PLATFORM_BSD
+#cmakedefine PLATFORM_FreeBSD
+#cmakedefine PLATFORM_NetBSD
+#cmakedefine PLATFORM_DragonFlyBSD
+#cmakedefine PLATFORM_OpenBSD
+#cmakedefine PLATFORM_HPUX
+
+/*
+ * include files
+ */
+#cmakedefine Have_asm_types_h
+
+/*
+ * functions
+ */
+#cmakedefine HAVE_waitid
+
+/*
+ * types
+ */
+#cmakedefine Have___compar_fn_t
+#cmakedefine HAVE_struct_ucred_in_socket_h
+#cmakedefine HAVE_struct_cmsgcred
+
+/*
+ * feature Use-flags
+ */
+#cmakedefine USE_CGroups
+#cmakedefine USE_KQueue
+
+/*
+ * Basic definitions
+ */
+
+#define PACKAGE_NAME "@PACKAGE_NAME@"
+#define PACKAGE_VERSION "@PACKAGE_VERSION@"
+#define PACKAGE_STRING "@PACKAGE_STRING@"
+
+#define DISTRIBUTION "@DISTRIBUTION@"
+
+/*
+ * Paths
+ */
+#define RUNSTATE_DIR "@RUNSTATE_DIR@"
+#define PKG_RUNSTATE_DIR "@PKG_RUNSTATE_DIR@"
+
+
+#endif
