@@ -29,7 +29,7 @@
 #include <string>
 #include <vector>
 
-class idb_parser_t;
+class IDB_Parser;
 
 #include "lemon_base.h"
 
@@ -82,26 +82,26 @@ position_t::pos() const
 	return m_pos;
 }
 
-struct Token {
-	Token() = default;
-	Token(const Token &) = default;
-	Token(Token &&) = default;
+struct token_t {
+	token_t() = default;
+	token_t(const token_t &) = default;
+	token_t(token_t &&) = default;
 
-	Token(double f) : floatValue(f)
+	token_t(double f) : floatValue(f)
 	{
 	}
-	Token(long i) : intValue(i)
+	token_t(long i) : intValue(i)
 	{
 	}
-	Token(const std::string &s) : stringValue(s)
+	token_t(const std::string &s) : stringValue(s)
 	{
 	}
-	Token(std::string &&s) : stringValue(std::move(s))
+	token_t(std::string &&s) : stringValue(std::move(s))
 	{
 	}
 
-	Token &operator=(const Token &) = default;
-	Token &operator=(Token &&) = default;
+	token_t &operator=(const token_t &) = default;
+	token_t &operator=(token_t &&) = default;
 
 	operator std::string() const
 	{
@@ -124,7 +124,7 @@ struct Token {
 struct ProgramNode;
 struct MethodNode;
 
-class idb_parser_t : public lemon_base<Token> {
+class IDB_Parser : public lemon_base<token_t> {
     protected:
 	std::string *fText = NULL;
 	std::list<std::string> includeDirs;
@@ -149,21 +149,21 @@ class idb_parser_t : public lemon_base<Token> {
 		return m_pos;
 	}
 
-	static idb_parser_t *create();
+	static IDB_Parser *create();
 
-	idb_parser_t();
+	IDB_Parser();
 
 	/* parsing */
 	void parse(std::string text);
 
 	void parse(int major)
 	{
-		parse(major, Token{});
+		parse(major, token_t{});
 	}
 
 	template <class T> void parse(int major, T &&t)
 	{
-		parse(major, Token(std::forward<T>(t)));
+		parse(major, token_t(std::forward<T>(t)));
 	}
 
 	virtual void trace(FILE *, const char *)

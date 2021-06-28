@@ -4,3 +4,6 @@
 [submodule "vendor/libev-ik"]
 	path = vendor/libev-ik
 	url = ../libev-ik
+[submodule "vendor/cJSON"]
+	path = vendor/cJSON
+	url = ../cJSON

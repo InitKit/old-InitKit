@@ -94,10 +94,10 @@ IncludeCategories:
  - Regex: '^<net.*/.*'
    Priority: -92
    SortPriority: -91
- - Regex: '^<protocols'
+ - Regex: '^<protocols/.*'
    Priority: -91
    SortPriority: -90
- - Regex: '^<fs'
+ - Regex: '^<fs/.*'
    Priority: -90
    SortPriority: -88
  - Regex: '^<.*>'

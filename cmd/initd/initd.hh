@@ -22,10 +22,10 @@
 #ifndef INITD_HH_
 #define INITD_HH_
 
-class initd_t {
+class Initd {
     public:
 };
 
-extern initd_t initd;
+extern Initd initd;
 
 #endif

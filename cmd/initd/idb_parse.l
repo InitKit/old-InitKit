@@ -7,7 +7,7 @@
 %option stack
 %option yylineno
 %option reentrant
-%option extra-type = "idb_parser_t *"
+%option extra-type = "IDB_Parser *"
 %option prefix = "idb"
 %option caseless
 

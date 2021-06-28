@@ -118,6 +118,7 @@ target_include_directories(ik-internal INTERFACE common head
 
 configure_file(head/InitKit/config.h.in head/InitKit/config.h)
 
+add_subdirectory(vendor/cJSON)
 add_subdirectory(vendor/lemon)
 add_subdirectory(vendor/tvision)
 add_subdirectory(vendor/libev-ik)

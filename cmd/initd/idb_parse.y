@@ -10,21 +10,21 @@
 	#include "idb_parse.tab.h"
 	#include "idb_parse.l.h"
 
-	#define LEMON_SUPER idb_parser_t
+	#define LEMON_SUPER IDB_Parser
 }
 
-%token_type	{Token}
+%token_type	{token_t}
 %token_prefix 	TOK_
 
 %code {
 
-idb_parser_t::idb_parser_t()
+IDB_Parser::IDB_Parser()
 {
 	idblex_init_extra(this, &scanner);
 }
 
 void
-idb_parser_t::parse(std::string src)
+IDB_Parser::parse(std::string src)
 {
 	YY_BUFFER_STATE yyb;
 
@@ -40,14 +40,14 @@ idb_parser_t::parse(std::string src)
 	fText = NULL;
 }
 
-idb_parser_t *
-idb_parser_t::create()
+IDB_Parser *
+IDB_Parser::create()
 {
 	return new yypParser();
 }
 
 position_t
-idb_parser_t::pos()
+IDB_Parser::pos()
 {
 	yypParser *self = (yypParser *)this;
 	return position_t(self->m_oldLine, self->m_oldCol, self->m_oldPos,

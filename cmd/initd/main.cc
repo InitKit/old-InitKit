@@ -25,11 +25,11 @@
 #include "idb_parse.hh"
 #include "initd.hh"
 
-initd_t initd;
+Initd initd;
 
 int
 main()
 {
-	idb_parser_t *parser = idb_parser_t::create();
+	IDB_Parser *parser = IDB_Parser::create();
 	parser->parse("Hello World IMPORT\n");
 }
