@@ -20,7 +20,7 @@
 #define ISUPPER(X) isupper((unsigned char)(X))
 #define ISLOWER(X) islower((unsigned char)(X))
 #ifdef LEMONPLUSPLUS
-#define FILE_EXTENSION ".tab.cxx"
+#define FILE_EXTENSION ".tab.cc"
 #else
 #define FILE_EXTENSION ".tab.c"
 #endif

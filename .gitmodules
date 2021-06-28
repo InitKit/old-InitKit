@@ -1,3 +1,6 @@
 [submodule "vendor/tvision"]
 	path = vendor/tvision
 	url = ../tvision
+[submodule "vendor/libev-ik"]
+	path = vendor/libev-ik
+	url = ../libev-ik

@@ -22,14 +22,5 @@
  * which the programmer's attention ought to be drawn, etc.
  */
 
-#include "idb_parse.hh"
-#include "initd.hh"
-
-initd_t initd;
-
-int
-main()
-{
-	idb_parser_t *parser = idb_parser_t::create();
-	parser->parse("Hello World IMPORT\n");
-}
+#include <readline/history.h>
+#include <readline/readline.h>

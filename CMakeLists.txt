@@ -2,6 +2,10 @@ project(InitKit)
 cmake_minimum_required(VERSION 3.9)
 cmake_policy(VERSION 3.9)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_STANDARD 99)
+
 set(PACKAGE_NAME InitKit)
 set(PACKAGE_VERSION 1.0-alpha)
 set(PACKAGE_STRING "${PACKAGE_NAME} version ${PACKAGE_VERSION}")
@@ -17,6 +21,7 @@ include(CheckIncludeFile)
 include(CheckLibraryExists)
 include(CheckSymbolExists)
 include(CheckTypeSize)
+include(LemFlex)
 
 list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE -D__BSD_VISIBLE")
 
@@ -115,6 +120,9 @@ configure_file(head/InitKit/config.h.in head/InitKit/config.h)
 
 add_subdirectory(vendor/lemon)
 add_subdirectory(vendor/tvision)
+add_subdirectory(vendor/libev-ik)
+add_subdirectory(cmd/initd)
+add_subdirectory(cmd/initadm)
 
 
 #-------------------------------------------------------------------------------
@@ -126,7 +134,7 @@ function(FShow pref flag defval descr)
     option(${flag} ${descr} ${${defval}})
 
     if(${flag})
-        message("${pref}  ${descr}: ${${flag}}")(
+        message("${pref}  ${descr}: ${${flag}}")
     else()
         message("${pref}  ${descr}: OFF")
     endif()

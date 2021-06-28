@@ -15,21 +15,17 @@
  * 		All rights reserved.
  */
 /**
- * @file filename.h
- * @brief A brief description of the file's purpose.
- *
- * A lengthier description of the general purpose of the file, any subtleties to
- * which the programmer's attention ought to be drawn, etc.
+ * @file initd.h
+ * @brief InitKit Control Daemon global state.
  */
 
-#include "idb_parse.hh"
-#include "initd.hh"
+#ifndef INITD_HH_
+#define INITD_HH_
 
-initd_t initd;
+class initd_t {
+    public:
+};
 
-int
-main()
-{
-	idb_parser_t *parser = idb_parser_t::create();
-	parser->parse("Hello World IMPORT\n");
-}
+extern initd_t initd;
+
+#endif
