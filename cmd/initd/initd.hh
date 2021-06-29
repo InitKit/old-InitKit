@@ -22,6 +22,8 @@
 #ifndef INITD_HH_
 #define INITD_HH_
 
+#include "jss.hh"
+
 class Initd {
     public:
 };
