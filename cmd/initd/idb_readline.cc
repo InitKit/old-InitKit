@@ -19,7 +19,32 @@
  * @brief Readline-based command prompt for the InitKit Debugger.
  */
 
-#include <stdio.h>
+#include <cstdio>
+#include <cstdlib>
 
 #include <readline/history.h>
 #include <readline/readline.h>
+
+#include "idb.hh"
+
+int
+Debugger::read()
+{
+	char *buf;
+	while ((buf = readline(">> ")) != NULL) {
+		printf("Read One\n");
+		if (!buf || strlen(buf) == 0)
+			continue;
+		else if (strcmp(buf, "exit") == 0)
+			return 1;
+		else if (strcmp(buf, "terminate") == 0)
+			exit(EXIT_FAILURE);
+		else if (strlen(buf) > 0)
+			add_history(buf);
+
+		parser->parse(buf);
+
+		free(buf);
+	}
+	return 0;
+}

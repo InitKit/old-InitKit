@@ -78,6 +78,14 @@ else()
   set(DEFAULT_USE_KQueue NO)
 endif()
 
+#
+# compiler settings
+#
+
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+  string(APPEND CMAKE_CXX_FLAGS "-Wno-c++17-compat-mangling")
+endif()
+
 
 #-------------------------------------------------------------------------------
 # checks
@@ -112,16 +120,19 @@ endif()
 # actual building commands
 #-------------------------------------------------------------------------------
 
-add_library(ik-internal INTERFACE)
-target_include_directories(ik-internal INTERFACE common head
-  ${CMAKE_CURRENT_BINARY_DIR}/head)
+add_library(initkit INTERFACE)
+target_include_directories(initkit INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/common>
+  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/head>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/head>)
 
-configure_file(head/InitKit/config.h.in head/InitKit/config.h)
+configure_file(head/InitKit/ik_config.h.in head/InitKit/ik_config.h)
 
 add_subdirectory(vendor/cJSON)
 add_subdirectory(vendor/lemon)
 add_subdirectory(vendor/tvision)
 add_subdirectory(vendor/libev-ik)
+add_subdirectory(lib/internal)
 add_subdirectory(cmd/initd)
 add_subdirectory(cmd/initadm)
 

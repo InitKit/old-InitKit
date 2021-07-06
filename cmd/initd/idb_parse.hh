@@ -192,4 +192,4 @@ class IDB_Parser : public lemon_base<token_t> {
 	}
 };
 
-#endif
+#endif /* IDB_PARSE_HH_ */

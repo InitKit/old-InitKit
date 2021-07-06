@@ -15,21 +15,14 @@
  * 		All rights reserved.
  */
 /**
- * @file idb.cc
- * @brief Debugger implementation.
+ * @file macros.h
+ * @brief Macros used throughout InitKit.
  */
 
-#include "idb.hh"
-#include "idb_parse.hh"
-#include "idb_parse.l.h"
+#ifndef MACROS_H_
+#define MACROS_H_
 
-void
-Debugger::enter()
-{
-	parser = IDB_Parser::create();
-	printf("Welcome to the InitKit Debugger.\n");
-	printf("Type `exit` to leave the debugger.");
-	while (read() == 0)
-		;
-	delete (parser);
-}
+/* The number of elements of an array. */
+#define NELEMENTS(arr) (sizeof(arr) / sizeof(arr[0]))
+
+#endif /* MACROS_H_ */

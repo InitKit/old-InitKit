@@ -15,34 +15,22 @@
  * 		All rights reserved.
  */
 /**
- * @file initd.h
- * @brief InitKit Scheduler Service global state.
+ * @file idb.h
+ * @brief InitKit Debugger definitions.
  */
 
-#ifndef INITD_HH_
-#define INITD_HH_
+#ifndef IDB_HH_
+#define IDB_HH_
 
-#include "ev.h"
-#include "idb.hh"
-#include "jss.hh"
+#include "idb_parse.hh"
 
-class Initd {
-	struct ev_loop *evloop;
-	Debugger idb;
-
-	/* Set up signal handling. */
-	void init_signals();
-
-	static void signal_cb(struct ev_loop *evloop, ev_signal *watch,
-			      int revents);
+class Debugger {
+	IDB_Parser *parser;
+	/* Read in one command. Return 1 if exit requested.*/
+	int read();
 
     public:
-	/* Low-level initialisation of the Scheduler Service. */
-	void init();
-	/* Main loop. */
-	void loop();
+	void enter();
 };
 
-extern Initd initd;
-
-#endif
+#endif /* IDB_HH_ */

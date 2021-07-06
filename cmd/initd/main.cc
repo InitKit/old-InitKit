@@ -16,20 +16,79 @@
  */
 /**
  * @file filename.h
- * @brief A brief description of the file's purpose.
- *
- * A lengthier description of the general purpose of the file, any subtleties to
- * which the programmer's attention ought to be drawn, etc.
+ * @brief Entry point for the InitKit Scheduler Service
  */
 
+#include <sys/signal.h>
+
+#include <err.h>
+#include <cassert>
+
+#include "ev.h"
 #include "idb_parse.hh"
 #include "initd.hh"
+#include "macros.h"
 
 Initd initd;
+
+#pragma region Callbacks
+
+void
+Initd::signal_cb(struct ev_loop *evloop, ev_signal *watch, int revents)
+{
+	if (watch->signum == SIGINT)
+		initd.idb.enter();
+}
+
+#pragma endregion
+
+#pragma region Initialisation
+
+void
+Initd::init_signals()
+{
+	sigset_t mask;
+	struct sigaction sa_chld = {
+		{ SIG_DFL },
+		SA_NOCLDSTOP | SA_RESTART,
+	};
+	int signals[] = {
+		SIGCHLD,
+		SIGINT,
+	};
+	static ev_signal ev_signals[255] = {};
+
+	/* Disable delivery of SIGCHLD for a stopped child. */
+	assert(sigaction(SIGCHLD, &sa_chld, NULL) == 0);
+	assert(sigemptyset(&mask) == 0);
+
+	for (int i = 0; i < NELEMENTS(signals); i++) {
+		ev_signal_init(&ev_signals[i], signal_cb, signals[i]);
+		assert(sigaddset(&mask, signals[i]) == 0);
+		ev_signal_start(evloop, &ev_signals[i]);
+	}
+}
+
+void
+Initd::init()
+{
+	evloop = ev_default_loop(EVFLAG_NOSIGMASK);
+	if (!evloop)
+		err(EXIT_FAILURE, "Failed to create event loop");
+	init_signals();
+}
+
+#pragma endregion
+
+void Initd::loop()
+{
+	ev_run(evloop, 0);
+
+}
 
 int
 main()
 {
-	IDB_Parser *parser = IDB_Parser::create();
-	parser->parse("Hello World IMPORT\n");
+	initd.init();
+	initd.loop();
 }
