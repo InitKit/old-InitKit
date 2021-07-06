@@ -125,7 +125,6 @@ add_subdirectory(vendor/libev-ik)
 add_subdirectory(cmd/initd)
 add_subdirectory(cmd/initadm)
 
-
 #-------------------------------------------------------------------------------
 # display enabled options
 #-------------------------------------------------------------------------------

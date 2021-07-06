@@ -23,8 +23,11 @@
 #define INITD_HH_
 
 #include "jss.hh"
+#include "ev.h"
 
 class Initd {
+    struct ev_loop * evloop = EV_DEFAULT;
+
     public:
 };
 
