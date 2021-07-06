@@ -100,6 +100,9 @@ IncludeCategories:
  - Regex: '^<fs/.*'
    Priority: -90
    SortPriority: -88
+ - Regex: '^<.*/.*' # any additional should go *after* the standard incs.
+   Priority: -35
+   SortPriority: -35
  - Regex: '^<.*>'
    Priority: -40
    SortPriority: -40

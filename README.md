@@ -17,3 +17,10 @@ unit-file converter is provided.
 InitKit is still under development. Anyone who wishes to contribute to the
 project is invited to join, and anyone is welcome to inquire about how their
 company may prepare for the upcoming deprecation of SystemD.
+
+Documentation
+-------------
+
+ - [Building]: How to build and install InitKit from source.
+
+[Building]: doc/Building.md

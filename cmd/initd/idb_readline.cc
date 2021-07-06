@@ -15,12 +15,11 @@
  * 		All rights reserved.
  */
 /**
- * @file filename.h
- * @brief A brief description of the file's purpose.
- *
- * A lengthier description of the general purpose of the file, any subtleties to
- * which the programmer's attention ought to be drawn, etc.
+ * @file idb_readline.cc
+ * @brief Readline-based command prompt for the InitKit Debugger.
  */
+
+#include <stdio.h>
 
 #include <readline/history.h>
 #include <readline/readline.h>
