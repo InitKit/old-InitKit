@@ -18,6 +18,16 @@ InitKit is still under development. Anyone who wishes to contribute to the
 project is invited to join, and anyone is welcome to inquire about how their
 company may prepare for the upcoming deprecation of SystemD.
 
+Licencing
+---------
+
+InitKit is available as free, open-source software to individuals, small
+businesses, non-profits, and co-operatives. Any substantive modifications to the 
+source code must be returned for possible integration to InitKit.
+
+Other users may evaluate InitKit, but must purchase a licence to deploy in
+production.
+
 Documentation
 -------------
 
