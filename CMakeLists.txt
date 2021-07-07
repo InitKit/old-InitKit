@@ -92,10 +92,10 @@ endif()
 #-------------------------------------------------------------------------------
 
 find_package(Threads REQUIRED)
-pkg_check_modules(Readline IMPORTED_TARGET readline)
+pkg_check_modules(EditLine IMPORTED_TARGET libedit)
 
-if(Readline_FOUND)
-  set(DEFAULT_USE_Readline true)
+if(EditLine_FOUND)
+  set(DEFAULT_USE_EditLine true)
 endif()
 
 check_include_file(asm/types.h HAVE_asm_types_h)

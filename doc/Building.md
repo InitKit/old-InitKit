@@ -24,10 +24,17 @@ software and libraries are:
  e.g. HP C/aC++ A0.06.25; IBM XLC++ 13.1; Apple LLVM/Clang 3.0; GNU Compiler
  Collection 4.8;
  - The Fast Lexical Analyser FLEX.
+ - NetBSD EditLine (or GNU ReadLine; only the ReadLine interface is consumed).
 
-For example, to install on FreeBSD:
+For example, to install dependencies on FreeBSD:
 
-`# pkg install git cmake flex`
+`# pkg install git cmake flex libedit`
+
+On Open SuSE Linux (Leap 15.3):
+
+```# zypper in -t pattern devel_C_C++
+# zypper in cmake git flex libedit libedit-devel
+```
 
 Source tree checkout
 --------------------

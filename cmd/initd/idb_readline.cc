@@ -16,14 +16,14 @@
  */
 /**
  * @file idb_readline.cc
- * @brief Readline-based command prompt for the InitKit Debugger.
+ * @brief EditLine-based command prompt for the InitKit Debugger.
  */
 
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 
-#include <readline/history.h>
-#include <readline/readline.h>
+#include <editline/readline.h>
 
 #include "idb.hh"
 
@@ -32,7 +32,6 @@ Debugger::read()
 {
 	char *buf;
 	while ((buf = readline(">> ")) != NULL) {
-		printf("Read One\n");
 		if (!buf || strlen(buf) == 0)
 			continue;
 		else if (strcmp(buf, "exit") == 0)
