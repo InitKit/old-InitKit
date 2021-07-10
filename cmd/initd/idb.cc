@@ -28,7 +28,7 @@ Debugger::enter()
 {
 	parser = IDB_Parser::create();
 	printf("Welcome to the InitKit Debugger.\n");
-	printf("Type `exit` to leave the debugger.");
+	printf("Type `exit` to leave the debugger.\n");
 	while (read() == 0)
 		;
 	delete (parser);

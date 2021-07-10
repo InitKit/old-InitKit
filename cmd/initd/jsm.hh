@@ -15,10 +15,10 @@
  * 		All rights reserved.
  */
 /**
- * @file jss.h
- * @brief Job Scheduling System (JSS) definitions
+ * @file jsm.h
+ * @brief Job Scheduling Module (JSM) definitions
  * 
- * The Job Scheduling System is a fairly self-contained module. These are the
+ * The Job Scheduling Module is a fairly self-contained module. These are the
  * interfaces to the module:
  * 
  * - Admission of SchedulerEntities.
@@ -33,14 +33,14 @@
  * - Service control commands, i.e. start and stop.
  * - Transaction and other status updates.
  *
- * The Job Scheduling System is an event-based system with a transactional
+ * The Job Scheduling Module is an event-based system with a transactional
  * impurity, designed after the order of the X Desktop Group's systemd. As it
  * handles a similar set of dependency modes as does systemd, it is quite
  * complicated. This is why it is designed to be highly self-contained and
  * modular. For example, consider how the Scheduler class sends output commands
  * and updates to a SchedulerDelegate object.
  *
- * A characteristic of this design is that the JSS can duplicate its object
+ * A characteristic of this design is that the JSM can duplicate its object
  * graph (encapsulated within the Scheduler object) and then test how service
  * states would change as a result of one or more administrative requests, or as
  * a result of unscheduled failures. A mock SchedulerDelegate simply immediately
@@ -50,8 +50,8 @@
  * administrative request would change service states.
  */
 
-#ifndef JSS_HH_
-#define JSS_HH_
+#ifndef JSM_HH_
+#define JSM_HH_
 
 #include <list>
 #include <memory>

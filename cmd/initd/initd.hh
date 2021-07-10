@@ -24,7 +24,7 @@
 
 #include "ev.h"
 #include "idb.hh"
-#include "jss.hh"
+#include "jsm.hh"
 
 class Initd {
 	struct ev_loop *evloop;

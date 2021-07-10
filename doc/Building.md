@@ -5,7 +5,8 @@ InitKit uses the industry-standard combination of the  [CMake] build automation
 framework with the [GIT] source code management suite. These products make
 building and contributing to InitKit a straightforward experience.
 
-There are three steps to building and installing InitKit from source: installing dependencies, checking out the source tree and its submodules, running CMake,
+There are three steps to building and installing InitKit from source: installing
+dependencies, checking out the source tree and its submodules, running CMake,
 then running Make to install it.
 
 [CMake]: https://cmake.org
