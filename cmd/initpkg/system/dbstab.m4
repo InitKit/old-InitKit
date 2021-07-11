@@ -1,0 +1,33 @@
+m4_define(SD_ENTRY,`{
+        "command": "'CMAKE_INSTALL_PREFIX/IK_PKG_LIBEXECDIR`/sd_import",
+        "argument": $1,
+        "desc": $2,
+    }')m4_dnl
+[
+    SD_ENTRY("/etc/systemd/system.control",
+        "(SystemD) Persistent configuration created using the dbus API"),
+    SD_ENTRY("/run/systemd/system.control",
+        "(SystemD) Transient configuration created using the dbus API"),
+    SD_ENTRY("/run/systemd/transient",
+        "(SystemD) Dynamic configuration for transient units"),
+    SD_ENTRY("/run/systemd/generator.early",
+        "(SystemD) Generated units with high priority (see early-dir in systemd.generator(7))"),
+    SD_ENTRY("/etc/systemd/system",
+        "(SystemD) System units created by the administrator"),
+    SD_ENTRY("/etc/systemd/system.attached",
+        "(SystemD) Attached system units created by the administrator"),
+    SD_ENTRY("/run/systemd/system",
+        "(SystemD) Runtime units"),
+    SD_ENTRY("/run/systemd/system.attached",
+        "(SystemD) Attached runtime units"),
+    SD_ENTRY("/run/systemd/generator",
+        "(SystemD) Generated units with medium priority (see normal-dir in systemd.generator(7))"),
+    SD_ENTRY("/usr/local/lib/systemd/system",
+        "(SystemD) System units installed by the administrator"),
+    SD_ENTRY("/usr/local/lib/systemd/system",
+        "(SystemD) System units installed by the administrator"),
+    SD_ENTRY("/usr/lib/systemd/system",
+        "(SystemD) System units installed by the distribution package manager"),
+    SD_ENTRY("/run/systemd/generator.late",
+        "(SystemD) Generated units with low priority (see late-dir in systemd.generator(7))")
+]

@@ -25,6 +25,10 @@ include(LemFlex)
 
 list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE -D__BSD_VISIBLE")
 
+#
+# functions for the build system
+#
+
 macro(check_type_size_in type headers var)
   cmake_push_check_state()
   list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE -D__BSD_VISIBLE")
@@ -36,9 +40,48 @@ endmacro()
 # If ${var} is set to anything, set ${var2} to true
 macro(set_to_true var var2)
   if(${var})
-    message("${var} is true")
     set(${var2} TRUE)
   endif()
+endmacro()
+
+# If ${path} is not absolute, make it relative to ${CMAKE_CURRENT_SOURCE_DIR}
+macro(path_relative_in path)
+  if(NOT IS_ABSOLUTE ${path})
+    set(${path} ${CMAKE_CURRENT_SOURCE_DIR}/${${path}})
+  endif()
+endmacro()
+
+# If ${path} is not absolute, make it relative to ${CMAKE_CURRENT_BINARY_DIR}
+macro(path_relative_out path)
+  if(NOT IS_ABSOLUTE ${path})
+    set(${path} ${CMAKE_CURRENT_BINARY_DIR}/${${path}})
+  endif()
+endmacro()
+
+# Remove characters from the end of a string
+macro(remove_chars_end str str_out charnum)
+  string(LENGTH "${${str}}" str_len)
+  math(EXPR str_len "${str_len} - ${charnum}")
+  string (SUBSTRING ${${str}} 0 ${str_len} ${str_out})
+endmacro()
+
+function(build_m4 in out)
+  path_relative_in(in)
+  path_relative_out(out)
+  get_filename_component(out_dir ${out} DIRECTORY)
+  file(MAKE_DIRECTORY ${out_dir})
+  # CMake has outrageously incomprehensible escaping rules; we try to circumvent
+  # this madness as best we can here.
+  set(command "m4 ${M4_PARAMS} -P < ${in} > ${out}")
+  add_custom_command(
+    OUTPUT ${out}
+    VERBATIM COMMAND sh -c ${command}
+    DEPENDS ${in})
+endfunction(build_m4)
+
+# Add a variable to the M4 invocation parameters
+macro(add_to_m4_params var)
+  string(APPEND M4_PARAMS " -D${var}=${${var}}")
 endmacro()
 
 #-------------------------------------------------------------------------------
@@ -133,15 +176,13 @@ add_subdirectory(vendor/lemon)
 add_subdirectory(vendor/tvision)
 add_subdirectory(vendor/libev-ik)
 add_subdirectory(lib/internal)
-add_subdirectory(cmd/initd)
-add_subdirectory(cmd/initadm)
 
 #-------------------------------------------------------------------------------
 # display enabled options
 #-------------------------------------------------------------------------------
 
 function(FShow pref flag defval descr)
-    list(APPEND options ${flag})
+    list(APPEND options "${flag}")
     option(${flag} ${descr} ${${defval}})
 
     if(${flag})
@@ -163,9 +204,22 @@ FShow("    ->" USE_CGroups
 FShow("    ->" USE_KQueue
   DEFAULT_USE_KQueue "Kernel Queues")
 
+# additional variables
 
-foreach(option options)
+set(IK_PKG_LIBEXECDIR ${CMAKE_INSTALL_LIBEXECDIR}/InitKit)
+
+add_to_m4_params(CMAKE_INSTALL_PREFIX)
+add_to_m4_params(IK_PKG_LIBEXECDIR)
+
+# broken
+foreach(option IN LISTS options)
   if(${option})
-    list(APPEND M4_Defs "-D${option}=${${option}}")
+    list(APPEND M4_PARAMS "-D${option}=${${option}}")
   endif()
 endforeach()
+
+# must come later so that variables are appropriately defined
+
+add_subdirectory(cmd/initd)
+add_subdirectory(cmd/initadm)
+add_subdirectory(cmd/initpkg)

@@ -12,9 +12,9 @@ Enumerated in this page are some of the components of the system.
 A System Entity is some resource whose status may be tracked or polled, and
 which may in addition be manipulable by requests to be started and stopped. The
 SEOM is the model of objects and their interfaces to which SEs are
-abstracted; we conceptualise the Ein general as an interface,
-particular kinds of entities as classes, while the entities themselves are
-instances of particular subclasses.
+abstracted; we conceptualise the SE in general as an interface, particular kinds
+of entities as classes, and the entities themselves as instances of particular
+subclasses.
 
 SEs are named by URIs. For example, a local Process resource may be named
 `process:/rpcbind`. A concept of *parametric SEs* exists also; these are not SEs
