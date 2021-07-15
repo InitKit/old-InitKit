@@ -79,9 +79,11 @@ function(build_m4 in out)
     DEPENDS ${in})
 endfunction(build_m4)
 
-# Add a variable to the M4 invocation parameters
-macro(add_to_m4_params var)
-  string(APPEND M4_PARAMS " -D${var}=${${var}}")
+# Add variables to the M4 invocation parameters
+macro(add_to_m4_params)
+  foreach(arg IN ITEMS ${ARGN})
+    string(APPEND M4_PARAMS " -D${arg}=${${arg}}")
+  endforeach()
 endmacro()
 
 #-------------------------------------------------------------------------------
@@ -169,8 +171,6 @@ target_include_directories(initkit INTERFACE
   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/head>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/head>)
 
-configure_file(head/InitKit/ik_config.h.in head/InitKit/ik_config.h)
-
 add_subdirectory(vendor/cJSON)
 add_subdirectory(vendor/lemon)
 add_subdirectory(vendor/tvision)
@@ -207,9 +207,9 @@ FShow("    ->" USE_KQueue
 # additional variables
 
 set(IK_PKG_LIBEXECDIR ${CMAKE_INSTALL_LIBEXECDIR}/InitKit)
+set(IK_PKG_SYSCONFDIR ${CMAKE_INSTALL_FULL_SYSCONFDIR}/InitKit)
 
-add_to_m4_params(CMAKE_INSTALL_PREFIX)
-add_to_m4_params(IK_PKG_LIBEXECDIR)
+add_to_m4_params(CMAKE_INSTALL_PREFIX DEFAULT_RUNSTATE_DIR IK_PKG_LIBEXECDIR)
 
 # broken
 foreach(option IN LISTS options)
@@ -219,6 +219,8 @@ foreach(option IN LISTS options)
 endforeach()
 
 # must come later so that variables are appropriately defined
+
+configure_file(head/InitKit/ik_config.h.in head/InitKit/ik_config.h)
 
 add_subdirectory(cmd/initd)
 add_subdirectory(cmd/initadm)

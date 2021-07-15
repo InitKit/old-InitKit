@@ -21,9 +21,10 @@
 
 #include <sys/signal.h>
 
-#include <err.h>
 #include <cassert>
+#include <err.h>
 
+#include "InitKit/ik_config.h"
 #include "ev.h"
 #include "idb_parse.hh"
 #include "initd.hh"
@@ -72,10 +73,14 @@ Initd::init_signals()
 void
 Initd::init()
 {
+	int e;
 	evloop = ev_default_loop(EVFLAG_NOSIGMASK);
 	if (!evloop)
 		err(EXIT_FAILURE, "Failed to create event loop");
 	init_signals();
+	e = dlm.init(IK_PKG_SYSCONFDIR "/system/dbstab");
+	if (e < 0)
+		err(EXIT_FAILURE, "Failed to load dbstab");
 }
 
 #pragma endregion

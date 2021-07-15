@@ -58,7 +58,8 @@ understanding the system:
   relationships between them as appropriate for their associated Scheduler
   Entity's dependencies.
 
-The JSM also maintains some other core components of the InitKit system:
+Integrated quite closely and essential to the running of the JSM are these
+subsystems:
 
 ### The *System Entity Descriptions Cache* (SEDC)
 

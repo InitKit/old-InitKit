@@ -4,7 +4,7 @@
 	#include <fstream>
 	#include <list>
 
-	#include "InitKit/ik_cxxutil.hh"
+	#include "cxxutil.hh"
 
 	#include "idb_parse.hh"
 	#include "idb_parse.tab.h"

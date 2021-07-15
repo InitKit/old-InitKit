@@ -1,3 +1,5 @@
+list(APPEND SRCS cjson_ex.cc)
+
 if(PLATFORM_Linux)
     list(APPEND SRCS proc_lin.cc)
 elseif(PLATFORM_BSD)
@@ -9,4 +11,4 @@ endif()
 
 add_library(ik-internal ${SRCS})
 target_include_directories(ik-internal PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/head)
-target_link_libraries(ik-internal initkit ${LibKVM})
+target_link_libraries(ik-internal initkit ik-cjson ${LibKVM})

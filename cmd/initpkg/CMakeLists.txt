@@ -6,4 +6,7 @@ foreach(m4_source IN LISTS M4_SOURCES)
     list(APPEND M4_OUTPUTS ${CMAKE_CURRENT_BINARY_DIR}/${m4_out})
 endforeach()
 
-add_custom_target(m4_generate DEPENDS ${M4_OUTPUTS})
+add_custom_target(m4_generate ALL DEPENDS ${M4_OUTPUTS})
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/system/dbstab
+    DESTINATION ${IK_PKG_SYSCONFDIR}/system)

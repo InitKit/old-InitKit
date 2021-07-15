@@ -25,10 +25,13 @@
 #include "ev.h"
 #include "idb.hh"
 #include "jsm.hh"
+#include "dlm.hh"
 
 class Initd {
 	struct ev_loop *evloop;
 	Debugger idb;
+	JSM jsm;
+	DLM dlm;
 
 	/* Set up signal handling. */
 	void init_signals();

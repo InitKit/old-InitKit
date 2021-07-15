@@ -78,4 +78,9 @@ class Scheduler {
     public:
 };
 
+class JSM : public SchedulerDelegate {
+	Scheduler * sched;
+	public:
+};
+
 #endif
