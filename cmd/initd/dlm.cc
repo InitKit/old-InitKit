@@ -19,9 +19,24 @@
  * @brief Description Loading Module
  */
 
+#include <algorithm>
+
 #include "cJSON.h"
 #include "cjson_ex.hh"
 #include "dlm.hh"
+
+template <typename CompareTo, typename T2> struct IsEqual {
+	IsEqual(CompareTo &s) : m_s(s)
+	{
+	}
+
+	bool operator()(std::shared_ptr<T2> &rhs)
+	{
+		return (*rhs) == m_s;
+	}
+
+	CompareTo &m_s;
+};
 
 int
 DLM::init(const char *dbstabpath)
@@ -33,16 +48,39 @@ DLM::init(const char *dbstabpath)
 int
 DLM::reloaddbstab()
 {
-	cJSON *dbsjson, *dbsentjson;
+	cJSON *dbstabjson, *dbsentjson;
 	int r;
+	DBSEntVec newdbs;
 
-	r = parse_json_file(m_dbstabpath, dbsjson);
+	r = parse_json_file(m_dbstabpath, dbstabjson);
 	if (r < 0)
 		return r;
 
-	dbsentjson = dbsjson->child;
-	while (dbsentjson) {
-		dbsentjson = dbsentjson->next;
+	//olddbs = std::move(m_dbsentries);
+	//m_dbsentries.clear();
+
+	for (dbsentjson = dbstabjson->child; dbsentjson;
+	     dbsentjson = dbsentjson->next) {
+		const char *name;
+		cJSON *cmdjson, *descjson, *prijson;
+		DBSEntVec::iterator it;
+
+		name = dbsentjson->string;
+		cmdjson =
+			cJSON_GetObjectItemCaseSensitive(dbsentjson, "command");
+		descjson = cJSON_GetObjectItemCaseSensitive(dbsentjson,
+							    "description");
+		prijson = cJSON_GetObjectItemCaseSensitive(dbsentjson,
+							   "priority");
+
+		if (!cJSON_IsString(cmdjson) || !cJSON_IsNumber(prijson))
+			fprintf(stderr,
+				"dbstab entry %s has missing or invalid"
+				"command or priority property\n",
+				name);
+
+		std::find_if(m_dbsentries.begin(), m_dbsentries.end(),
+			     IsEqual<const char *, DBSEntry>(name));
 	}
 
 	return r;

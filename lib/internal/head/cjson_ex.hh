@@ -27,6 +27,14 @@
 
 #include "cJSON.h"
 
+/** Internal representation of a JSON schema, created from a cJSON object. */
+class Schema;
+
+/**
+ * Create a \c Schema from a cJSON object.
+ */
+Schema *create_schema(cJSON *schemacj);
+
 /**
  * Try to parse a JSON file into a cJSON object.
  * 
@@ -35,6 +43,6 @@
  * @returns -ENOMEM if there is an out-of-memory condition
  * @returns -errno for any other file reading error
  */
-int parse_json_file(const char *path, cJSON *&obj);
+int parse_json_file(const char *path, cJSON *&objjc);
 
 #endif /* CJSON_EX_HH_ */

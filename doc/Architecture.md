@@ -82,11 +82,11 @@ add to the invocation of that binary. Entries are ranked in priority;
 lower-priority entries' properties are superseded by those of higher-priority
 entries.
 
-A special set of entries at the lowest priority are added for each SEOM Provider
-Switch entry; these specify that an SE Class' Supervisor is itself a backing
-store, and they have no command but instead instead instruct the JSM to ask the
-Supervisor to enumerate any entries it can describe. This is of particular
-import in the case of the Device SE class, for example.
+A special set of entries at the lowest priority are added for each Class
+Provider Switch entry; these specify that an SE Class' Supervisor is itself a
+backing store, and they have no command but instead instead instruct the JSM to
+ask the Supervisor to enumerate any entries it can describe. This is of
+particular import in the case of the Device SE class, for example.
 
 At present, the JSM will synchronously wait on each DBS entries' command to
 complete execution, by which point it is expected that the command has sent

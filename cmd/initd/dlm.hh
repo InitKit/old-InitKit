@@ -22,26 +22,40 @@
 #ifndef DLM_HH_
 #define DLM_HH_
 
+#include <memory>
 #include <string>
 #include <vector>
 
 class DBSEntry {
+	std::string name;
+
 	/**
-     * How many entries in the SEDC sourced at least some of their data from
-     * this DBS entry.
-     */
-	int m_refcount;
+      * The command to execute. May include variables for expansion. Variables
+      * permitted: $entryname
+      */
+	std::string command;
+
+	std::string description;
+
 	/**
-     * The priority of this entry.
-     * 
-     * If INT_MIN, the entry was deleted from the dbstab and is no longer in the
-     * switch, but remains allocated as it has a reference count greater than 1.
-     */
+      * Entry priority. If INT_MIN, the entry was deleted from the dbstab and is
+      * no longer in the switch, but remains allocated as it has a reference
+      * count greater than 1.
+      */
 	int m_priority;
+
+    public:
+	/* True is entry name matches string. */
+	bool operator==(const char *&str)
+	{
+		return name == str;
+	}
 };
 
 class DLM {
-	std::vector<DBSEntry> m_dbsentries;
+	typedef std::vector<std::shared_ptr<DBSEntry> > DBSEntVec;
+
+	std::vector<std::shared_ptr<DBSEntry> > m_dbsentries;
 	const char *m_dbstabpath;
 
     public:

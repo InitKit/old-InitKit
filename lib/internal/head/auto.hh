@@ -16,13 +16,20 @@
  */
 /**
  * @file auto.hh
- * @brief Automatic wrappers for some datatypes.
+ * @brief Wrappers to give automatic storage-duration to some other datatypes.
  */
 
 #ifndef AUTO_HH_
 #define AUTO_HH_
 
 #include <stdio.h>
+
+template <class T> class Auto {
+    public:
+	T obj;
+	/* A function of this signature is called on going out-of-scope. */
+	typedef void (*Deleter)(T &);
+};
 
 template <class T> class AutoPtr {
     public:

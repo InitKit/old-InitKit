@@ -1,5 +1,5 @@
 m4_define(SD_ENTRY,`$1: {
-        "priority": $2
+        "priority": $2,
         "command": "'CMAKE_INSTALL_PREFIX/IK_PKG_LIBEXECDIR`/sd_import $`'entryname",
         "desc": $3
     }')m4_dnl
