@@ -27,6 +27,8 @@
 
 #include "cJSON.h"
 
+#pragma region JSON - Schema validation.
+
 /** Internal representation of a JSON schema, created from a cJSON object. */
 class Schema;
 
@@ -34,6 +36,10 @@ class Schema;
  * Create a \c Schema from a cJSON object.
  */
 Schema *create_schema(cJSON *schemacj);
+
+#pragma endregion
+
+#pragma region Miscellaneous convenience functions
 
 /**
  * Try to parse a JSON file into a cJSON object.
@@ -44,5 +50,7 @@ Schema *create_schema(cJSON *schemacj);
  * @returns -errno for any other file reading error
  */
 int parse_json_file(const char *path, cJSON *&objjc);
+
+#pragma endregion
 
 #endif /* CJSON_EX_HH_ */

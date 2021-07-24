@@ -16,18 +16,18 @@
  */
 /**
  * @file cjson_schema.cc
- * @brief JSON-Schema functionality.
+ * @brief JSON-Schema functionality - stub.
  */
 
 #include "cjson_ex.hh"
 
-class Schema {
-	std::string id;
-};
-
 class Subschema {
 	Schema *m_schema;
 	Subschema *m_parent;
+};
+
+class Schema {
+	std::string id;
 };
 
 Schema *

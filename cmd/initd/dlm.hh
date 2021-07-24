@@ -26,7 +26,7 @@
 #include <string>
 #include <vector>
 
-class DBSEntry {
+struct DBSEntry {
 	std::string name;
 
 	/**

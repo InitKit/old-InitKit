@@ -27,6 +27,12 @@ software and libraries are:
  - The Fast Lexical Analyser FLEX.
  - NetBSD EditLine (or GNU ReadLine; only the ReadLine interface is consumed).
 
+Some dependencies are optional:
+
+ - ManDoc: Required for compilation of the Manual Pages.
+
+[ManDoc]: http://mandoc.bsd.lv
+
 For example, to install dependencies on FreeBSD:
 
 `# pkg install git cmake flex libedit`

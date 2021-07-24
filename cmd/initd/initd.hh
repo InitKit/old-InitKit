@@ -28,11 +28,6 @@
 #include "dlm.hh"
 
 class Initd {
-	struct ev_loop *evloop;
-	Debugger idb;
-	JSM jsm;
-	DLM dlm;
-
 	/* Set up signal handling. */
 	void init_signals();
 
@@ -40,6 +35,11 @@ class Initd {
 			      int revents);
 
     public:
+	struct ev_loop *evloop;
+	Debugger idb;
+	JSM jsm;
+	DLM dlm;
+
 	/* Low-level initialisation of the Scheduler Service. */
 	void init();
 	/* Main loop. */

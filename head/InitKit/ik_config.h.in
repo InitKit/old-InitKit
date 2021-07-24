@@ -41,6 +41,7 @@
 /*
  * functions
  */
+#cmakedefine HAVE_strtonum
 #cmakedefine HAVE_waitid
 
 /*

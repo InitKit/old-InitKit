@@ -44,7 +44,7 @@ Licencing
 ---------
 
 InitKit is available as free, open-source software under the terms of the Affero
-General Public Licence version 3.0. See [LICENSE.MD] for full terms.
+General Public Licence version 3.0. See [LICENSE.MD](LICENSE.MD) for full terms.
 
 Documentation
 -------------

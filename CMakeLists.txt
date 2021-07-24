@@ -138,6 +138,7 @@ endif()
 
 find_package(Threads REQUIRED)
 pkg_check_modules(EditLine IMPORTED_TARGET libedit)
+find_program(ManDoc mandoc)
 
 if(EditLine_FOUND)
   set(DEFAULT_USE_EditLine true)
@@ -149,6 +150,7 @@ check_type_size_in("struct cmsgcred" "sys/socket.h" HAVE_struct_cmsgcred)
 check_type_size_in("struct ucred" "sys/socket.h"
   HAVE_struct_ucred_in_sys_socket_h)
 
+check_symbol_exists(strtonum "stdlib.h" HAVE_strtonum)
 check_symbol_exists(waitid "sys/wait.h" HAVE_waitid)
 
 #-------------------------------------------------------------------------------
@@ -221,6 +223,11 @@ endforeach()
 # must come later so that variables are appropriately defined
 
 configure_file(head/InitKit/ik_config.h.in head/InitKit/ik_config.h)
+
+if(USE_Docs)
+  add_subdirectory(vendor/docbook2mdoc)
+  add_subdirectory(manual)
+endif()
 
 add_subdirectory(cmd/initd)
 add_subdirectory(cmd/initadm)

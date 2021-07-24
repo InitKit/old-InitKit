@@ -79,9 +79,28 @@ DLM::reloaddbstab()
 				"command or priority property\n",
 				name);
 
-		std::find_if(m_dbsentries.begin(), m_dbsentries.end(),
-			     IsEqual<const char *, DBSEntry>(name));
+		it = std::find_if(m_dbsentries.begin(), m_dbsentries.end(),
+				  IsEqual<const char *, DBSEntry>(name));
+
+		if (it != m_dbsentries.end() &&
+		    (*it)->m_priority == prijson->valueint &&
+		    (*it)->command == cmdjson->valuestring)
+			/* existing entry with same properties; retain */;
+		else {
+			/* no entry exists with same properties; create new. */
+			std::shared_ptr<DBSEntry> newent =
+				std::make_shared<DBSEntry>();
+			newent->name = name;
+			newent->command = cmdjson->valuestring;
+			if (cJSON_IsString(descjson))
+				newent->description = descjson->valuestring;
+			newent->m_priority = prijson->valueint;
+			newdbs.emplace_back(std::move(newent));
+		}
 	}
+
+	m_dbsentries.clear();
+	m_dbsentries = std::move(newdbs);
 
 	return r;
 }

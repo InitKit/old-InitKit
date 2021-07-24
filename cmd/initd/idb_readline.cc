@@ -26,6 +26,7 @@
 #include <editline/readline.h>
 
 #include "idb.hh"
+#include "initd.hh"
 
 int
 Debugger::read()
@@ -38,6 +39,8 @@ Debugger::read()
 			return 1;
 		else if (strcmp(buf, "terminate") == 0)
 			exit(EXIT_FAILURE);
+		else if (strcmp(buf, "reloaddbs") == 0)
+			initd.dlm.reloaddbstab();
 		else if (strlen(buf) > 0)
 			add_history(buf);
 
