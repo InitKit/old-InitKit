@@ -43,12 +43,8 @@ following ways:
 Licencing
 ---------
 
-InitKit is available as free, open-source software to individuals, small
-businesses, non-profits, and co-operatives. Any substantive modifications to the 
-source code must be returned for possible integration to InitKit.
-
-Other users may evaluate InitKit, but must purchase a licence to deploy in
-production.
+InitKit is available as free, open-source software under the terms of the Affero
+General Public Licence version 3.0. See [LICENSE.MD] for full terms.
 
 Documentation
 -------------
