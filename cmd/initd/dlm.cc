@@ -99,6 +99,8 @@ DLM::reloaddbstab()
 		}
 	}
 
+	cJSON_Delete(dbstabjson);
+
 	m_dbsentries.clear();
 	m_dbsentries = std::move(newdbs);
 

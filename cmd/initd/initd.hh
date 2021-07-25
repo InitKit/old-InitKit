@@ -28,6 +28,11 @@
 #include "dlm.hh"
 
 class Initd {
+	enum Mode {
+		kSystem,
+		kUser,
+	} m_mode;
+
 	/* Set up signal handling. */
 	void init_signals();
 
@@ -41,7 +46,7 @@ class Initd {
 	DLM dlm;
 
 	/* Low-level initialisation of the Scheduler Service. */
-	void init();
+	void init(bool sysmode);
 	/* Main loop. */
 	void loop();
 };

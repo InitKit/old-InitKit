@@ -22,15 +22,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "auto.hh"
 #include "cjson_ex.hh"
+#include "cxxutil.hh"
 
 int
 parse_json_file(const char *path, cJSON *&obj)
 {
-	FileStar f;
 	long len = 0;
-	AutoPtr<char> data;
+	Auto<char *, FreeLikeDeleter, free> data;
+	FileStar f;
 
 	f = fopen(path, "rb");
 	if (!f)
@@ -39,6 +39,7 @@ parse_json_file(const char *path, cJSON *&obj)
 	len = ftell(f);
 	fseek(f, 0, SEEK_SET);
 
+	printf("Data: %p\n", data.operator char *());
 	data = (char *)malloc(len + 1);
 	if (!data)
 		return -ENOMEM;

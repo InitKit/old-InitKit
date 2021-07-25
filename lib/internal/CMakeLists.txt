@@ -1,4 +1,4 @@
-list(APPEND SRCS compat/strtonum.c cjson_ex.cc cjson_schema.cc)
+list(APPEND SRCS compat/strtonum.c cjson_ex.cc cjson_schema.cc cxxutil.cc)
 
 if(PLATFORM_Linux)
     list(APPEND SRCS proc_lin.cc)

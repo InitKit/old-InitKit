@@ -23,8 +23,11 @@
 
 #include <cassert>
 #include <err.h>
+#include <getopt.h>
+#include <unistd.h>
 
 #include "InitKit/ik_config.h"
+#include "cxxutil.hh"
 #include "ev.h"
 #include "idb_parse.hh"
 #include "initd.hh"
@@ -71,16 +74,33 @@ Initd::init_signals()
 }
 
 void
-Initd::init()
+Initd::init(bool sysmode)
 {
 	int e;
-	evloop = ev_default_loop(EVFLAG_NOSIGMASK);
-	if (!evloop)
-		err(EXIT_FAILURE, "Failed to create event loop");
-	init_signals();
-	e = dlm.init(IK_PKG_SYSCONFDIR "/system/dbstab");
-	if (e < 0)
-		err(EXIT_FAILURE, "Failed to load dbstab");
+
+	printf(PACKAGE_STRING " running as ");
+	if (sysmode == kSystem)
+		printf("system manager\n");
+	else
+		printf("user manager for UID %d\n", getuid());
+
+	m_mode = sysmode ? kSystem : kUser;
+
+	try {
+		evloop = ev_default_loop(EVFLAG_NOSIGMASK);
+		if (!evloop)
+			err(EXIT_FAILURE, "Failed to create event loop");
+
+		init_signals();
+
+		e = dlm.init(IK_PKG_SYSCONFDIR "/system/dbstab");
+		if (e < 0)
+			throw(IKException(e, "Failed to load dbstab"));
+	} catch (IKException &e) {
+		printf("Failed to start InitKit Main Supervisor: %s\n",
+		       e.what());
+		exit(EXIT_FAILURE);
+	}
 }
 
 #pragma endregion
@@ -88,12 +108,21 @@ Initd::init()
 void Initd::loop()
 {
 	ev_run(evloop, 0);
-
 }
 
 int
-main()
+main(int argc, char *argv[])
 {
-	initd.init();
+	bool sysmode = false; /* system mode v.s. user mode */
+	int c;
+
+	while ((c = getopt(argc, argv, "s")) != -1)
+		switch (c) {
+		case 's':
+			sysmode = true;
+			break;
+		}
+
+	initd.init(sysmode);
 	initd.loop();
 }
